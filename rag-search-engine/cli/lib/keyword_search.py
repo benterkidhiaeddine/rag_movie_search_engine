@@ -2,6 +2,9 @@ import string
 from typing import List
 
 
+from lib.search_utils import tokenize
+
+
 # Mapping table from punctuation to None to allow the translate function to remove punctuation
 punc_trans_table = str.maketrans({punc: None for punc in string.punctuation})
 
@@ -12,11 +15,15 @@ def keyword_search(
     result = []
     for el in data["movies"]:
         # Text Processing
-        search_query = search_query.lower().translate(punc_trans_table)
-        title = el["title"].lower().translate(punc_trans_table)
+        search_query_tokens = tokenize(search_query)
+        title_tokens = tokenize(el["title"])
 
-        if search_query in title:
-            result.append(el)
+        # If any token from the query matches a token in a title add It to our result
+        for search_token in search_query_tokens:
+            for title_token in title_tokens:
+                if search_token in title_token:
+                    result.append(el)
+
     return result[:limit]
 
 

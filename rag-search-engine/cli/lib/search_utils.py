@@ -1,6 +1,8 @@
 import sys
 import json
+import string
 from pathlib import Path
+from typing import List
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
@@ -19,3 +21,12 @@ def load_movies_db() -> dict:
         sys.exit(1)
 
     return movies_db
+
+
+def tokenize(word: str) -> List[str]:
+    # Mapping table from punctuation to None to allow the translate function to remove punctuation
+    punc_trans_table = str.maketrans({punc: None for punc in string.punctuation})
+
+    result = word.lower().translate(punc_trans_table).split(" ")
+
+    return result
