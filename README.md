@@ -26,29 +26,13 @@ source .venv/bin/activate   # Linux / macOS
 .venv\Scripts\activate      # Windows
 ```
 
-**Using the standard library:**
-
-```bash
-python -m venv .venv
-source .venv/bin/activate   # Linux / macOS
-.venv\Scripts\activate      # Windows
-```
-
 ### 3. Install dependencies
 
 **Using uv:**
 
 ```bash
-uv pip install -e .
+uv  sync
 ```
-
-**Using pip:**
-
-```bash
-pip install -e .
-```
-
-This installs the project in editable mode along with its only dependency: `nltk==3.9.1`.
 
 ## Usage
 
