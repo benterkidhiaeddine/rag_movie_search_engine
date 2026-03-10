@@ -1,38 +1,11 @@
 #!/usr/bin/env python3
-import json
 
 import argparse
-from pathlib import Path
-from typing import List
 
-# More reliable way for handling paths in python
-parent_directory = Path(__file__).parent.parent
-MOVIES_DB_FILE_PATH =  parent_directory / "data" / "movies.json"
+from lib.keyword_search import keyword_search
+from lib.search_utils import load_movies_db
 
-
-def search_in_movies_db(query: str, limit=5) -> List[dict[str, str | int]]:
-    # Initiate the result
-    search_result  = []
-
-    # Load the movies db
-    try:
-        jsonfile = open(MOVIES_DB_FILE_PATH, mode="r", encoding="utf-8")
-        movies_db = json.load(jsonfile)
-        jsonfile.close()
-    except FileNotFoundError:
-        print(f"The file {MOVIES_DB_FILE_PATH} does not exist")
-        return search_result
-    
-    # Itterate over the list of movies
-    for movie in movies_db["movies"]:
-        if query in movie["title"]:
-            search_result.append(movie)
-        
-
-    return search_result[:limit]
-
-
-
+   
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Keyword Search CLI")
@@ -49,7 +22,9 @@ def main() -> None:
             # print the search query here
             print(f"Searching for: {search_query}")
 
-            search_result = search_in_movies_db(search_query)
+            movies_db_data = load_movies_db()
+
+            search_result = keyword_search(data =movies_db_data ,search_query=search_query)
             for i , movie in enumerate(search_result, start=1):
                 print(f"{i}. {movie['title']}")
         case _:
