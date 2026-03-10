@@ -5,6 +5,7 @@ from io import TextIOBase
 from pathlib import Path
 from typing import List
 
+
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 MOVIES_DB_FILE_PATH = PROJECT_ROOT / "data" / "movies.json"
@@ -49,6 +50,15 @@ def remove_stop_words(tokens: List[str]) -> List[str]:
         if token not in stop_words:
             result.append(token)
 
+    return result
+
+
+def stem_tokens(tokens: List[str]) -> List[str]:
+    from nltk.stem import PorterStemmer
+
+    stemmer = PorterStemmer()
+
+    result = [stemmer.stem(token) for token in tokens]
     return result
 
 

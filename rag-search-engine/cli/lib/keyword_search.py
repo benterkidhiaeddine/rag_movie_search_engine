@@ -2,7 +2,7 @@ import string
 from typing import List
 
 
-from lib.search_utils import tokenize, remove_stop_words
+from lib.search_utils import tokenize, remove_stop_words, stem_tokens
 
 
 # Mapping table from punctuation to None to allow the translate function to remove punctuation
@@ -16,8 +16,16 @@ def keyword_search(
     for el in data["movies"]:
 
         # Text Processing
-        search_query_tokens = remove_stop_words(tokenize(search_query))
-        title_tokens = remove_stop_words(tokenize(el["title"]))
+        search_query_tokens = stem_tokens(
+            remove_stop_words(
+                tokenize(search_query),
+            )
+        )
+        title_tokens = stem_tokens(
+            remove_stop_words(
+                tokenize(el["title"]),
+            )
+        )
 
         found = False
         # If any token from the query matches a token in a title add It to our result
