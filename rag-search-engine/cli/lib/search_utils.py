@@ -6,6 +6,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 MOVIES_DB_FILE_PATH = PROJECT_ROOT / "data" / "movies.json"
 
+
 def load_movies_db() -> dict:
     result = {}
     # Load the movies db
@@ -16,5 +17,5 @@ def load_movies_db() -> dict:
     except FileNotFoundError:
         print(f"The file {MOVIES_DB_FILE_PATH} does not exist")
         sys.exit(1)
-   
-    return  movies_db
+
+    return movies_db
