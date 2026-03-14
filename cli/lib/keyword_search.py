@@ -13,14 +13,15 @@ def keyword_search(
     data: dict, search_query: str, limit: int = 5
 ) -> List[dict[str, str | int]]:
     result = []
+
+    search_query_tokens = stem_tokens(
+        remove_stop_words(
+            tokenize(search_query),
+        )
+    )
     for el in data["movies"]:
 
         # Text Processing
-        search_query_tokens = stem_tokens(
-            remove_stop_words(
-                tokenize(search_query),
-            )
-        )
         title_tokens = stem_tokens(
             remove_stop_words(
                 tokenize(el["title"]),
