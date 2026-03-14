@@ -42,7 +42,7 @@ def clean_text(word: str) -> str:
 
 
 def tokenize(word: str) -> List[str]:
-    result = word.split(" ")
+    result = [token for token in word.split(" ") if token]
     return result
 
 
@@ -75,3 +75,4 @@ def stem_tokens(tokens: List[str]) -> List[str]:
 
 if __name__ == "__main__":
     assert set(remove_stop_words(["hello", "the", "out"])) == set(["hello"])
+    assert tokenize("hello by what ( )") == ["hello", "by", "what", "(", ")"]
