@@ -5,10 +5,6 @@ from typing import List
 from lib.search_utils import tokenize, remove_stop_words, stem_tokens
 
 
-# Mapping table from punctuation to None to allow the translate function to remove punctuation
-punc_trans_table = str.maketrans({punc: None for punc in string.punctuation})
-
-
 def keyword_search(
     data: dict, search_query: str, limit: int = 5
 ) -> List[dict[str, str | int]]:
@@ -40,7 +36,3 @@ def keyword_search(
                     result.append(el)
 
     return result[:limit]
-
-
-if __name__ == "__main__":
-    assert "Hello !! ---- ".translate(punc_trans_table) == "Hello   "

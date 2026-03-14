@@ -36,7 +36,7 @@ def load_stop_words() -> List[str]:
 
 def tokenize(word: str) -> List[str]:
     # Mapping table from punctuation to None to allow the translate function to remove punctuation
-    punc_trans_table = str.maketrans({punc: None for punc in string.punctuation})
+    punc_trans_table = str.maketrans("", "", string.punctuation)
 
     result = word.lower().translate(punc_trans_table).split(" ")
 
@@ -63,5 +63,4 @@ def stem_tokens(tokens: List[str]) -> List[str]:
 
 
 if __name__ == "__main__":
-    print(remove_stop_words(["hello", "the", "out"]))
     assert set(remove_stop_words(["hello", "the", "out"])) == set(["hello"])
