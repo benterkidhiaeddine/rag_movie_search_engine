@@ -2,7 +2,7 @@
 
 import argparse
 
-from lib.keyword_search import keyword_search
+from lib.keyword_search import keyword_search, keyword_search_using_index
 from lib.search_utils import load_movies_db
 
 from lib.inverted_index import InvertedIndex
@@ -20,17 +20,24 @@ def main() -> None:
 
     match args.command:
         case "search":
+
+            # Load index
+            inverted_index = InvertedIndex()
+            inverted_index.load()
+
             search_query = args.query
             # print the search query here
             print(f"Searching for: {search_query}")
 
             movies_db_data = load_movies_db()
 
-            search_result = keyword_search(
-                data=movies_db_data, search_query=search_query
-            )
+            # search_result = keyword_search(
+            #    data=movies_db_data, search_query=search_query
+            # )
+
+            search_result = keyword_search_using_index(search_query, 10)
             for i, movie in enumerate(search_result, start=1):
-                print(f"{i}. {movie['title']}")
+                print(f"{i}. {movie['title']} | ID:{movie["id"]}")
 
         case "build":
             inverted_index = InvertedIndex()
@@ -38,10 +45,6 @@ def main() -> None:
             inverted_index.build()
 
             inverted_index.save()
-
-            print(
-                f"First document for token 'merida' = {inverted_index.get_documents("merida")[0]}"
-            )
 
         case _:
             parser.print_help()

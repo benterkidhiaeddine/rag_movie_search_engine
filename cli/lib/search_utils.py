@@ -69,6 +69,7 @@ def stem_tokens(tokens: List[str]) -> List[str]:
 
 
 def tokenize(word: str) -> List[str]:
+    word = clean_text(word)
     result = [token for token in word.split(" ") if token]
 
     result = remove_stop_words(result)
