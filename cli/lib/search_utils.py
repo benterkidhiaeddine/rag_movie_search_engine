@@ -41,11 +41,6 @@ def clean_text(word: str) -> str:
     return result
 
 
-def tokenize(word: str) -> List[str]:
-    result = [token for token in word.split(" ") if token]
-    return result
-
-
 def has_matching_token(query_tokens: List[str], movie_tokens: List[str]) -> bool:
     for query_token in query_tokens:
         for movie_token in movie_tokens:
@@ -70,6 +65,15 @@ def stem_tokens(tokens: List[str]) -> List[str]:
     stemmer = PorterStemmer()
 
     result = [stemmer.stem(token) for token in tokens]
+    return result
+
+
+def tokenize(word: str) -> List[str]:
+    result = [token for token in word.split(" ") if token]
+
+    result = remove_stop_words(result)
+
+    result = stem_tokens(result)
     return result
 
 
