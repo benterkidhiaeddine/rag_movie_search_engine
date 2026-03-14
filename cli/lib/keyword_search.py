@@ -2,7 +2,12 @@ import string
 from typing import List
 
 
-from lib.search_utils import tokenize, remove_stop_words, stem_tokens
+from lib.search_utils import (
+    tokenize,
+    remove_stop_words,
+    stem_tokens,
+    has_matching_token,
+)
 
 
 def keyword_search(
@@ -23,16 +28,7 @@ def keyword_search(
                 tokenize(el["title"]),
             )
         )
-
-        found = False
-        # If any token from the query matches a token in a title add It to our result
-        for title_token in title_tokens:
-            if found:
-                break
-            for search_query_token in search_query_tokens:
-                if search_query_token in title_token:
-                    # Flag denoting that we have a match
-                    found = True
-                    result.append(el)
+        if has_matching_token(search_query_tokens, title_tokens):
+            result.append(el)
 
     return result[:limit]

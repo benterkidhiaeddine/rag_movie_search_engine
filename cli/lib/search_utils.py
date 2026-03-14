@@ -34,13 +34,24 @@ def load_stop_words() -> List[str]:
     return stop_words
 
 
-def tokenize(word: str) -> List[str]:
-    # Mapping table from punctuation to None to allow the translate function to remove punctuation
+def clean_text(word: str) -> str:
+
     punc_trans_table = str.maketrans("", "", string.punctuation)
-
-    result = word.lower().translate(punc_trans_table).split(" ")
-
+    result = word.lower().translate(punc_trans_table)
     return result
+
+
+def tokenize(word: str) -> List[str]:
+    result = word.split(" ")
+    return result
+
+
+def has_matching_token(query_tokens: List[str], movie_tokens: List[str]) -> bool:
+    for query_token in query_tokens:
+        for movie_token in movie_tokens:
+            if query_token in movie_token:
+                return True
+    return False
 
 
 def remove_stop_words(tokens: List[str]) -> List[str]:
