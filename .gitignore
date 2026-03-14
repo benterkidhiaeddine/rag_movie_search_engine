@@ -12,3 +12,7 @@ wheels/
 
 # Data directory 
 /data
+
+
+# Pickeld filee
+*.pkl
