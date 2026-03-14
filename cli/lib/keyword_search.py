@@ -14,7 +14,7 @@ def keyword_search(
     result = []
 
     search_query_tokens = tokenize(search_query)
-    for el in data["movies"]:
+    for el in data:
 
         # Text Processing
         title_tokens = tokenize(el["title"])

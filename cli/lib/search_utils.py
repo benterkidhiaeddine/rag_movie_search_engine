@@ -24,7 +24,7 @@ def load_movies_db() -> dict:
         print(f"The file {MOVIES_DB_FILE_PATH} does not exist")
         sys.exit(1)
 
-    return movies_db
+    return movies_db["movies"]
 
 
 def load_stop_words() -> List[str]:
